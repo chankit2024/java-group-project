@@ -299,9 +299,11 @@ public class Main {
             System.out.println("ไม่มีสินค้าในตะกร้า!");
         } else {
             for (int i = 0; i < cartSize; i++) {
-                System.out.println("ชื่อสินค้า: " + cartNames[i] +
-                        ", ราคา: " + cartPrices[i] +
-                        ", จำนวนในตะกร้า: " + cartQuantities[i]);
+                String productId = inventoryIds[findIndexInInventory(cartNames[i])];
+                System.out.println("ID: " + productId + 
+                                 ", ชื่อสินค้า: " + cartNames[i] +
+                                 ", ราคา: " + cartPrices[i] +
+                                 ", จำนวนในตะกร้า: " + cartQuantities[i]);
             }
         }
     }
@@ -348,7 +350,18 @@ public class Main {
                 }
                 scanner.nextLine();
 
-                if (inventoryIndex != -1 && newQuantity <= inventoryQuantities[inventoryIndex]) {
+                if (newQuantity == 0) {
+                    // ลบสินค้าออกจากตะกร้าเมื่อจำนวนเป็น 0
+                    for (int i = cartIndex; i < cartSize - 1; i++) {
+                        cartNames[i] = cartNames[i + 1];
+                        cartPrices[i] = cartPrices[i + 1];
+                        cartQuantities[i] = cartQuantities[i + 1];
+                    }
+                    cartSize--;
+                    System.out.println("\n---------------\n");
+                    System.out.println("ลบสินค้าออกจากตะกร้าเนื่องจากจำนวนเป็น 0");
+                    System.out.println("\n---------------\n");
+                } else if (inventoryIndex != -1 && newQuantity <= inventoryQuantities[inventoryIndex]) {
                     cartQuantities[cartIndex] = newQuantity;
                     System.out.println("\n---------------\n");
                     System.out.println("แก้ไขสินค้าในตะกร้าเรียบร้อย!");
