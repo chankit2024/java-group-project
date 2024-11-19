@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class Main {
+    static String[] inventoryIds = new String[100];
     static String[] inventoryNames = new String[100];
     static double[] inventoryPrices = new double[100];
     static int[] inventoryQuantities = new int[100];
@@ -10,6 +11,8 @@ public class Main {
     static double[] cartPrices = new double[100];
     static int[] cartQuantities = new int[100];
     static int cartSize = 0;
+
+    static int lastUsedId = 0;
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -63,9 +66,15 @@ public class Main {
         }
     }
 
-    static int findIndexInInventory(String name) {
+    static String generateNewId() {
+        lastUsedId++;
+        return "" + lastUsedId;
+    }
+
+    static int findIndexInInventory(String nameOrId) {
         for (int i = 0; i < inventorySize; i++) {
-            if (inventoryNames[i].equals(name)) return i;
+            if (inventoryNames[i].equals(nameOrId) || inventoryIds[i].equals(nameOrId))
+                return i;
         }
         return -1;
     }
@@ -87,7 +96,6 @@ public class Main {
             System.out.print("ชื่อสินค้า: ");
             String name = scanner.nextLine();
 
-            // เช็คชื่อสินค้าซ้ำ
             for (int i = 0; i < inventorySize; i++) {
                 if (inventoryNames[i].equals(name)) {
                     System.out.println("\n---------------\n");
@@ -99,10 +107,27 @@ public class Main {
 
             System.out.print("ราคา: ");
             double price = scanner.nextDouble();
+            if (price < 0) {
+                System.out.println("\n---------------\n");
+                System.out.println("ราคาต้องไม่ติดลบ!");
+                System.out.println("\n---------------\n");
+                scanner.nextLine();
+                return;
+            }
+
             System.out.print("จำนวนในคลัง: ");
             int quantity = scanner.nextInt();
+            if (quantity < 0) {
+                System.out.println("\n---------------\n");
+                System.out.println("จำนวนต้องไม่ติดลบ!");
+                System.out.println("\n---------------\n");
+                scanner.nextLine();
+                return;
+            }
             scanner.nextLine();
 
+            String newId = generateNewId();
+            inventoryIds[inventorySize] = newId;
             inventoryNames[inventorySize] = name;
             inventoryPrices[inventorySize] = price;
             inventoryQuantities[inventorySize] = quantity;
@@ -110,6 +135,7 @@ public class Main {
 
             System.out.println("\n---------------\n");
             System.out.println("เพิ่มสินค้าในคลังเรียบร้อย!");
+            System.out.println("ID สินค้าคือ: " + newId);
             System.out.println("\n---------------\n");
 
         } catch (Exception e) {
@@ -126,19 +152,23 @@ public class Main {
             System.out.println("ไม่มีสินค้าในคลัง!");
         } else {
             for (int i = 0; i < inventorySize; i++) {
-                System.out.println("ชื่อสินค้า: " + inventoryNames[i] + ", ราคา: " + inventoryPrices[i] + ", จำนวนในคลัง: " + inventoryQuantities[i]);
+                System.out.println("ID: " + inventoryIds[i] +
+                        ", ชื่อสินค้า: " + inventoryNames[i] +
+                        ", ราคา: " + inventoryPrices[i] +
+                        ", จำนวนในคลัง: " + inventoryQuantities[i]);
             }
         }
         System.out.println("\n---------------");
     }
 
     static void removeInventoryProduct(Scanner scanner) {
-        System.out.print("ชื่อสินค้าที่ต้องการลบ: ");
-        String name = scanner.nextLine();
-        int index = findIndexInInventory(name);
+        System.out.print("ID หรือชื่อสินค้าที่ต้องการลบ: ");
+        String nameOrId = scanner.nextLine();
+        int index = findIndexInInventory(nameOrId);
 
         if (index != -1) {
             for (int i = index; i < inventorySize - 1; i++) {
+                inventoryIds[i] = inventoryIds[i + 1];
                 inventoryNames[i] = inventoryNames[i + 1];
                 inventoryPrices[i] = inventoryPrices[i + 1];
                 inventoryQuantities[i] = inventoryQuantities[i + 1];
@@ -155,16 +185,31 @@ public class Main {
     }
 
     static void editInventoryProduct(Scanner scanner) {
-        System.out.print("ชื่อสินค้าที่ต้องการแก้ไข: ");
-        String name = scanner.nextLine();
-        int index = findIndexInInventory(name);
+        System.out.print("ID หรือชื่อสินค้าที่ต้องการแก้ไข: ");
+        String nameOrId = scanner.nextLine();
+        int index = findIndexInInventory(nameOrId);
 
         try {
             if (index != -1) {
                 System.out.print("ราคาใหม่: ");
                 double newPrice = scanner.nextDouble();
+                if (newPrice < 0) {
+                    System.out.println("\n---------------\n");
+                    System.out.println("ราคาต้องไม่ติดลบ!");
+                    System.out.println("\n---------------\n");
+                    scanner.nextLine();
+                    return;
+                }
+
                 System.out.print("จำนวนใหม่ในคลัง: ");
                 int newQuantity = scanner.nextInt();
+                if (newQuantity < 0) {
+                    System.out.println("\n---------------\n");
+                    System.out.println("จำนวนต้องไม่ติดลบ!");
+                    System.out.println("\n---------------\n");
+                    scanner.nextLine();
+                    return;
+                }
                 scanner.nextLine();
 
                 inventoryPrices[index] = newPrice;
@@ -191,17 +236,24 @@ public class Main {
             return;
         }
 
-        System.out.print("ชื่อสินค้าที่ต้องการเพิ่มในตะกร้า: ");
-        String name = scanner.nextLine();
-        int inventoryIndex = findIndexInInventory(name);
+        System.out.print("ID หรือชื่อสินค้าที่ต้องการเพิ่มในตะกร้า: ");
+        String nameOrId = scanner.nextLine();
+        int inventoryIndex = findIndexInInventory(nameOrId);
 
         try {
             if (inventoryIndex != -1 && inventoryQuantities[inventoryIndex] > 0) {
                 System.out.print("จำนวนที่ต้องการเพิ่มในตะกร้า: ");
                 int quantity = scanner.nextInt();
+                if (quantity < 0) {
+                    System.out.println("\n---------------\n");
+                    System.out.println("จำนวนต้องไม่ติดลบ!");
+                    System.out.println("\n---------------\n");
+                    scanner.nextLine();
+                    return;
+                }
                 scanner.nextLine();
 
-                int cartIndex = findIndexInCart(name);
+                int cartIndex = findIndexInCart(inventoryNames[inventoryIndex]);
                 if (cartIndex != -1) {
                     int totalInCart = cartQuantities[cartIndex] + quantity;
                     if (totalInCart <= inventoryQuantities[inventoryIndex]) {
@@ -214,7 +266,7 @@ public class Main {
                     }
                 } else {
                     if (quantity <= inventoryQuantities[inventoryIndex]) {
-                        cartNames[cartSize] = name;
+                        cartNames[cartSize] = inventoryNames[inventoryIndex];
                         cartPrices[cartSize] = inventoryPrices[inventoryIndex];
                         cartQuantities[cartSize] = quantity;
                         cartSize++;
@@ -247,7 +299,9 @@ public class Main {
             System.out.println("ไม่มีสินค้าในตะกร้า!");
         } else {
             for (int i = 0; i < cartSize; i++) {
-                System.out.println("ชื่อสินค้า: " + cartNames[i] + ", ราคา: " + cartPrices[i] + ", จำนวนในตะกร้า: " + cartQuantities[i]);
+                System.out.println("ชื่อสินค้า: " + cartNames[i] +
+                        ", ราคา: " + cartPrices[i] +
+                        ", จำนวนในตะกร้า: " + cartQuantities[i]);
             }
         }
     }
@@ -268,6 +322,7 @@ public class Main {
             System.out.println("ลบสินค้าในตะกร้าเรียบร้อย!");
             System.out.println("\n---------------\n");
         } else {
+
             System.out.println("\n---------------\n");
             System.out.println("ไม่พบสินค้านี้ในตะกร้า!");
             System.out.println("\n---------------\n");
@@ -284,6 +339,13 @@ public class Main {
             if (cartIndex != -1) {
                 System.out.print("จำนวนใหม่ในตะกร้า: ");
                 int newQuantity = scanner.nextInt();
+                if (newQuantity < 0) {
+                    System.out.println("\n---------------\n");
+                    System.out.println("จำนวนต้องไม่ติดลบ!");
+                    System.out.println("\n---------------\n");
+                    scanner.nextLine();
+                    return;
+                }
                 scanner.nextLine();
 
                 if (inventoryIndex != -1 && newQuantity <= inventoryQuantities[inventoryIndex]) {
