@@ -27,7 +27,7 @@ public class Main {
             System.out.println("5. เพิ่มสินค้าในตะกร้าจากคลัง");
             System.out.println("6. ลบสินค้าในตะกร้า");
             System.out.println("7. แก้ไขสินค้าในตะกร้า");
-            System.out.println("8. คำนวณยอดรวมในตะกร้า");
+            System.out.println("8. แสดงรายการสินค้าในตะกร้า");
             System.out.println("9. ยืนยันการสั่งซื้อในตะกร้า");
             System.out.println("10. ออกจากโปรแกรม");
             System.out.print("เลือกเมนู: ");
