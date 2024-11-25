@@ -1,15 +1,15 @@
 import java.util.Scanner;
 
 public class Main {
-    static String[] inventoryIds = new String[100];
-    static String[] inventoryNames = new String[100];
-    static double[] inventoryPrices = new double[100];
-    static int[] inventoryQuantities = new int[100];
+    static String[] inventoryIds = new String[10000];
+    static String[] inventoryNames = new String[10000];
+    static double[] inventoryPrices = new double[10000];
+    static int[] inventoryQuantities = new int[10000];
     static int inventorySize = 0;
 
-    static String[] cartNames = new String[100];
-    static double[] cartPrices = new double[100];
-    static int[] cartQuantities = new int[100];
+    static String[] cartNames = new String[10000];
+    static double[] cartPrices = new double[10000];
+    static int[] cartQuantities = new int[10000];
     static int cartSize = 0;
 
     static int lastUsedId = 0;
