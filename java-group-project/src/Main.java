@@ -75,23 +75,6 @@ public class Main {
         return "" + lastUsedId;
     }
 
-    // อั๋น
-    static int findIndexInInventory(String nameOrId) {
-        for (int i = 0; i < inventorySize; i++) {
-            if (inventoryNames[i].equals(nameOrId) || inventoryIds[i].equals(nameOrId))
-                return i;
-        }
-        return -1;
-    }
-
-    // อั๋น
-    static int findIndexInCart(String name) {
-        for (int i = 0; i < cartSize; i++) {
-            if (cartNames[i].equals(name)) return i;
-        }
-        return -1;
-    }
-
     // แม็ค นายชาญกิจ สมผิว 672110227
     static void addInventoryProduct() {
         Scanner scanner = new Scanner(System.in);
@@ -154,6 +137,25 @@ public class Main {
             System.out.println("\n---------------\n");
         }
     }
+
+    // อั๋น
+    static int findIndexInInventory(String nameOrId) {
+        for (int i = 0; i < inventorySize; i++) {
+            if (inventoryNames[i].equals(nameOrId) || inventoryIds[i].equals(nameOrId))
+                return i;
+        }
+        return -1;
+    }
+
+    // อั๋น
+    static int findIndexInCart(String name) {
+        for (int i = 0; i < cartSize; i++) {
+            if (cartNames[i].equals(name)) return i;
+        }
+        return -1;
+    }
+
+
 
     // อั๋น
     static void displayInventoryProducts() {
