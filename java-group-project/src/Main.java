@@ -1,21 +1,24 @@
 import java.util.Scanner;
 
 public class Main {
-    static String[] inventoryIds = new String[10000];
-    static String[] inventoryNames = new String[10000];
-    static double[] inventoryPrices = new double[10000];
-    static int[] inventoryQuantities = new int[10000];
+    static String[] inventoryIds = new String[100];
+    static String[] inventoryNames = new String[100];
+    static double[] inventoryPrices = new double[100];
+    static int[] inventoryQuantities = new int[100];
     static int inventorySize = 0;
 
-    static String[] cartNames = new String[10000];
-    static double[] cartPrices = new double[10000];
-    static int[] cartQuantities = new int[10000];
+    static String[] cartNames = new String[100];
+    static double[] cartPrices = new double[100];
+    static int[] cartQuantities = new int[100];
     static int cartSize = 0;
 
     static int lastUsedId = 0;
 
+    // แม็ค นายชาญกิจ สมผิว 672110227
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
+
         int choice = 0;
 
         while (true) {
@@ -43,12 +46,12 @@ public class Main {
 
             switch (choice) {
                 case 1: displayInventoryProducts(); break;
-                case 2: addInventoryProduct(scanner); break;
-                case 3: removeInventoryProduct(scanner); break;
-                case 4: editInventoryProduct(scanner); break;
-                case 5: addToCart(scanner); break;
-                case 6: removeFromCart(scanner); break;
-                case 7: editCartProduct(scanner); break;
+                case 2: addInventoryProduct(); break;
+                case 3: removeInventoryProduct(); break;
+                case 4: editInventoryProduct(); break;
+                case 5: addToCart(); break;
+                case 6: removeFromCart(); break;
+                case 7: editCartProduct(); break;
                 case 8:
                     System.out.println("\n---------------\n");
                     displayCartProducts();
@@ -66,11 +69,13 @@ public class Main {
         }
     }
 
+    // แม็ค นายชาญกิจ สมผิว 672110227
     static String generateNewId() {
         lastUsedId++;
         return "" + lastUsedId;
     }
 
+    // อั๋น
     static int findIndexInInventory(String nameOrId) {
         for (int i = 0; i < inventorySize; i++) {
             if (inventoryNames[i].equals(nameOrId) || inventoryIds[i].equals(nameOrId))
@@ -79,6 +84,7 @@ public class Main {
         return -1;
     }
 
+    // อั๋น
     static int findIndexInCart(String name) {
         for (int i = 0; i < cartSize; i++) {
             if (cartNames[i].equals(name)) return i;
@@ -86,7 +92,10 @@ public class Main {
         return -1;
     }
 
-    static void addInventoryProduct(Scanner scanner) {
+    // แม็ค นายชาญกิจ สมผิว 672110227
+    static void addInventoryProduct() {
+        Scanner scanner = new Scanner(System.in);
+
         try {
             if (inventorySize >= 100) {
                 System.out.println("คลังสินค้าเต็ม!");
@@ -146,6 +155,7 @@ public class Main {
         }
     }
 
+    // อั๋น
     static void displayInventoryProducts() {
         System.out.println("\n---------------\n");
         if (inventorySize == 0) {
@@ -161,7 +171,9 @@ public class Main {
         System.out.println("\n---------------");
     }
 
-    static void removeInventoryProduct(Scanner scanner) {
+    // เฟียต
+    static void removeInventoryProduct() {
+        Scanner scanner = new Scanner(System.in);
         System.out.print("ID หรือชื่อสินค้าที่ต้องการลบ: ");
         String nameOrId = scanner.nextLine();
         int index = findIndexInInventory(nameOrId);
@@ -184,7 +196,10 @@ public class Main {
         }
     }
 
-    static void editInventoryProduct(Scanner scanner) {
+    // เฟียต
+    static void editInventoryProduct() {
+
+        Scanner scanner = new Scanner(System.in);
         System.out.print("ID หรือชื่อสินค้าที่ต้องการแก้ไข: ");
         String nameOrId = scanner.nextLine();
         int index = findIndexInInventory(nameOrId);
@@ -230,7 +245,11 @@ public class Main {
         }
     }
 
-    static void addToCart(Scanner scanner) {
+    // เฟียต
+    static void addToCart() {
+
+        Scanner scanner = new Scanner(System.in);
+
         if (cartSize >= 100) {
             System.out.println("ตะกร้าเต็ม!");
             return;
@@ -294,13 +313,14 @@ public class Main {
         }
     }
 
+    // กิ่ง
     static void displayCartProducts() {
         if (cartSize == 0) {
             System.out.println("ไม่มีสินค้าในตะกร้า!");
         } else {
             for (int i = 0; i < cartSize; i++) {
                 String productId = inventoryIds[findIndexInInventory(cartNames[i])];
-                System.out.println("ID: " + productId + 
+                System.out.println("ID: " + productId +
                                  ", ชื่อสินค้า: " + cartNames[i] +
                                  ", ราคา: " + cartPrices[i] +
                                  ", จำนวนในตะกร้า: " + cartQuantities[i]);
@@ -308,7 +328,11 @@ public class Main {
         }
     }
 
-    static void removeFromCart(Scanner scanner) {
+    // กิ่ง
+    static void removeFromCart() {
+
+        Scanner scanner = new Scanner(System.in);
+
         System.out.print("ชื่อสินค้าที่ต้องการลบจากตะกร้า: ");
         String name = scanner.nextLine();
         int index = findIndexInCart(name);
@@ -331,7 +355,11 @@ public class Main {
         }
     }
 
-    static void editCartProduct(Scanner scanner) {
+    // กล้า
+    static void editCartProduct() {
+
+        Scanner scanner = new Scanner(System.in);
+
         System.out.print("ชื่อสินค้าที่ต้องการแก้ไขในตะกร้า: ");
         String name = scanner.nextLine();
         int cartIndex = findIndexInCart(name);
@@ -351,7 +379,7 @@ public class Main {
                 scanner.nextLine();
 
                 if (newQuantity == 0) {
-                    // ลบสินค้าออกจากตะกร้าเมื่อจำนวนเป็น 0
+
                     for (int i = cartIndex; i < cartSize - 1; i++) {
                         cartNames[i] = cartNames[i + 1];
                         cartPrices[i] = cartPrices[i + 1];
@@ -384,6 +412,7 @@ public class Main {
         }
     }
 
+    // กล้า
     static double calculateCartTotal() {
         double total = 0;
         for (int i = 0; i < cartSize; i++) {
@@ -392,6 +421,7 @@ public class Main {
         return total;
     }
 
+    // กล้า
     static void confirmPurchase() {
         if (cartSize == 0) {
             System.out.println("\n---------------\n");
@@ -404,7 +434,7 @@ public class Main {
             System.out.println();
             System.out.println("ยอดรวมทั้งหมด: " + total);
 
-            // ลดจำนวนสินค้าจากคลังตามจำนวนในตะกร้า
+
             for (int i = 0; i < cartSize; i++) {
                 String productName = cartNames[i];
                 int cartQuantity = cartQuantities[i];
@@ -415,7 +445,7 @@ public class Main {
                 }
             }
 
-            // เคลียร์ข้อมูลในตะกร้า
+
             cartSize = 0;
 
             System.out.println("การสั่งซื้อเสร็จสมบูรณ์ ขอบคุณที่ใช้บริการ!");
