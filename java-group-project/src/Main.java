@@ -15,6 +15,7 @@ public class Main {
     static int lastUsedId = 0;
 
     // แม็ค นายชาญกิจ สมผิว 672110227
+
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
@@ -70,13 +71,16 @@ public class Main {
     }
 
     // แม็ค นายชาญกิจ สมผิว 672110227
+
     static String generateNewId() {
         lastUsedId++;
         return "" + lastUsedId;
     }
 
     // แม็ค นายชาญกิจ สมผิว 672110227
+
     static void addInventoryProduct() {
+
         Scanner scanner = new Scanner(System.in);
 
         try {
@@ -138,7 +142,8 @@ public class Main {
         }
     }
 
-    // อั๋น
+    // อั๋น นายอนุกูล สมโภชน์ 672110164
+
     static int findIndexInInventory(String nameOrId) {
         for (int i = 0; i < inventorySize; i++) {
             if (inventoryNames[i].equals(nameOrId) || inventoryIds[i].equals(nameOrId))
@@ -147,7 +152,8 @@ public class Main {
         return -1;
     }
 
-    // อั๋น
+    // อั๋น นายอนุกูล สมโภชน์ 672110164
+
     static int findIndexInCart(String name) {
         for (int i = 0; i < cartSize; i++) {
             if (cartNames[i].equals(name)) return i;
@@ -155,9 +161,8 @@ public class Main {
         return -1;
     }
 
+    // อั๋น นายอนุกูล สมโภชน์ 672110164
 
-
-    // อั๋น
     static void displayInventoryProducts() {
         System.out.println("\n---------------\n");
         if (inventorySize == 0) {
@@ -173,9 +178,12 @@ public class Main {
         System.out.println("\n---------------");
     }
 
-    // เฟียต
+    // เฟียต นายพัทธพล ดวงใจ 672110151
+
     static void removeInventoryProduct() {
+
         Scanner scanner = new Scanner(System.in);
+
         System.out.print("ID หรือชื่อสินค้าที่ต้องการลบ: ");
         String nameOrId = scanner.nextLine();
         int index = findIndexInInventory(nameOrId);
@@ -198,7 +206,8 @@ public class Main {
         }
     }
 
-    // เฟียต
+    // เฟียต นายพัทธพล ดวงใจ 672110151
+
     static void editInventoryProduct() {
 
         Scanner scanner = new Scanner(System.in);
@@ -247,16 +256,15 @@ public class Main {
         }
     }
 
-    // เฟียต
+    // เฟียต นายพัทธพล ดวงใจ 672110151
+
     static void addToCart() {
 
         Scanner scanner = new Scanner(System.in);
-
         if (cartSize >= 100) {
             System.out.println("ตะกร้าเต็ม!");
             return;
         }
-
         System.out.print("ID หรือชื่อสินค้าที่ต้องการเพิ่มในตะกร้า: ");
         String nameOrId = scanner.nextLine();
         int inventoryIndex = findIndexInInventory(nameOrId);
@@ -315,7 +323,8 @@ public class Main {
         }
     }
 
-    // กิ่ง
+    // กิ่ง นางสาวภูริชญา หลำสวัสดิ์ 672110239
+
     static void displayCartProducts() {
         if (cartSize == 0) {
             System.out.println("ไม่มีสินค้าในตะกร้า!");
@@ -330,11 +339,11 @@ public class Main {
         }
     }
 
-    // กิ่ง
+    // กิ่ง นางสาวภูริชญา หลำสวัสดิ์ 672110239
+
     static void removeFromCart() {
 
         Scanner scanner = new Scanner(System.in);
-
         System.out.print("ชื่อสินค้าที่ต้องการลบจากตะกร้า: ");
         String name = scanner.nextLine();
         int index = findIndexInCart(name);
@@ -357,11 +366,11 @@ public class Main {
         }
     }
 
-    // กล้า
+    // กล้า นายธนาโชติ คำชุม 672110226
+
     static void editCartProduct() {
 
         Scanner scanner = new Scanner(System.in);
-
         System.out.print("ชื่อสินค้าที่ต้องการแก้ไขในตะกร้า: ");
         String name = scanner.nextLine();
         int cartIndex = findIndexInCart(name);
@@ -414,7 +423,8 @@ public class Main {
         }
     }
 
-    // กล้า
+    // กล้า นายธนาโชติ คำชุม 672110226
+
     static double calculateCartTotal() {
         double total = 0;
         for (int i = 0; i < cartSize; i++) {
@@ -423,7 +433,8 @@ public class Main {
         return total;
     }
 
-    // กล้า
+    // กล้า นายธนาโชติ คำชุม 672110226
+
     static void confirmPurchase() {
         if (cartSize == 0) {
             System.out.println("\n---------------\n");
